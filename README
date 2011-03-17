@@ -7,13 +7,13 @@ SYNOPSIS
     command | curl -Ff=@- https://example.org/pasty
 
 DESCRIPTION
-    add /language to resulting url for line numbers and syntax highlighting
+    add ?lang to resulting url for line numbers and syntax highlighting
 
 EXAMPLES
     $ cat script.sh | curl -Ff=@- https://example.org/pasty
     https://example.org/pasty/d2e8uufl7c
-    $ firefox https://example.org/pasty/d2e8uufl7c/sh
-    $ curl https://example.org/pasty/d2e8uufl7c/sh
+    $ firefox https://example.org/pasty/d2e8uufl7c?sh
+    $ curl https://example.org/pasty/d2e8uufl7c?sh
 
 ----------------------------------------------------------------------------
 
