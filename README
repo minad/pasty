@@ -24,3 +24,4 @@ Features:
   - Very simple to deploy (copy file to webserver directory, create .pasty directory which should be writable by php)
   - Syntax-highlighting in the shell and the browser
   - Upload only via command line
+  - Written in ugliest PHP possible
