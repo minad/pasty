@@ -13,10 +13,10 @@ if (isset($_FILES['f'])) {
 		echo "404\n";
 	} elseif (isset($_SERVER['QUERY_STRING']) && preg_match('/^\w{2,10}$/', $_SERVER['QUERY_STRING'])) {
 		$format = $shell ? '-f terminal' : '-f html -O full,linenos=1';
-		passthru("pygmentize -l {$_SERVER['QUERY_STRING']} $format $file");
+		passthru("pygmentize -l {$_SERVER['QUERY_STRING']} $format $file 2>&1");
 	} else {
 		$content = file_get_contents($file);
-		echo($shell ? "$content\n" : '<pre>' . htmlentities($content) . '</pre>');
+		echo($shell ? chop($content) . "\n" : '<pre>' . htmlentities($content) . '</pre>');
 	}
 } else {
 	$name = basename($_SERVER['SCRIPT_NAME'], '.php');
