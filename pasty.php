@@ -3,7 +3,7 @@ $name = 'pasty';
 $url = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] . rtrim($_SERVER['REQUEST_URI'], '/');
 $shell = strpos($_SERVER['HTTP_USER_AGENT'], 'curl') === 0;
 $id = substr(base_convert(bin2hex(openssl_random_pseudo_bytes(20)), 16, 36), 0, 10);
-if ($_FILES['f']) {
+if (isset($_FILES['f'])) {
 	move_uploaded_file($_FILES['f']['tmp_name'], ".$name/$id");
 	echo "$url/$id\n";
 } elseif (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] !== '/') {
