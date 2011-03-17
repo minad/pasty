@@ -1,0 +1,26 @@
+pasty(1)                          PASTY                          pasty(1)
+
+NAME
+    pasty: command line pastebin
+
+SYNOPSIS
+    command | curl -Ff=@- https://example.org/pasty
+
+DESCRIPTION
+    add /language to resulting url for line numbers and syntax highlighting
+
+EXAMPLES
+    $ cat script.sh | curl -Ff=@- https://example.org/pasty
+    https://example.org/pasty/d2e8uufl7c
+    $ firefox https://example.org/pasty/d2e8uufl7c/sh
+    $ curl https://example.org/pasty/d2e8uufl7c/sh
+
+----------------------------------------------------------------------------
+
+* Inspired by https://github.com/rupa/sprunge
+* Ported to PHP, Syntax highlighting depending on User-Agent
+
+Features:
+  - Very simple to deploy (copy file to webserver directory, create .pasty directory which should be writable by php)
+  - Syntax-highlighting in the shell and the browser
+  - Upload only via command line
