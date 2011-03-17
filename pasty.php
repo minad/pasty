@@ -7,13 +7,13 @@ if ($_FILES['f']) {
 	move_uploaded_file($_FILES['f']['tmp_name'], ".$name/$id");
 	echo "$url/$id\n";
 } elseif (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] !== '/') {
-	list ($id, $lang) = split('/', substr($_SERVER['PATH_INFO'], 1));
+	$id = substr($_SERVER['PATH_INFO'], 1);
 	$file = ".$name/$id";
 	if (!preg_match('/^\w{10}$/', $id) || !file_exists($file)) {
 		echo "404\n";
-	} elseif ($lang && preg_match('/^\w{2,10}$/', $lang)) {
+	} elseif (isset($_SERVER['QUERY_STRING']) && preg_match('/^\w{2,10}$/', $_SERVER['QUERY_STRING'])) {
 		$format = $shell ? '-f terminal' : '-f html -O full,linenos=1';
-		passthru("pygmentize -l $lang $format $file");
+		passthru("pygmentize -l {$_SERVER['QUERY_STRING']} $format $file");
 	} else {
 		$content = file_get_contents($file);
 		echo($shell ? "$content\n" : '<pre>' . htmlentities($content) . '</pre>');
@@ -21,7 +21,7 @@ if ($_FILES['f']) {
 } else {
 	$name = basename($_SERVER['SCRIPT_NAME'], '.php');
 	$uname = strtoupper($name);
-	$link = $shell ? '/language' : '<a href="http://pygments.org/docs/lexers/">/language</a>';
+	$link = $shell ? '?lang' : '<a href="http://pygments.org/docs/lexers/">?lang</a>';
 $help = <<<HELP
 $name(1)                          $uname                          $name(1)
 
@@ -37,7 +37,7 @@ DESCRIPTION
 EXAMPLES
     $ cat script.sh | curl -Ff=@- $url
     $url/$id
-    $ firefox $url/$id/sh
+    $ firefox $url/$id?sh
 
 HELP;
 	echo($shell ? $help : "<html><head><style>a{ text-decoration: none; }</style></head><body><pre>\n$help\n</pre></body>");
