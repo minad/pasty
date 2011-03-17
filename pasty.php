@@ -20,10 +20,8 @@ if ($_FILES['f']) {
 	}
 } else {
 	$name = basename($_SERVER['SCRIPT_NAME'], '.php');
-	$uname = strtoupper($name);
 	$link = $shell ? '?lang' : '<a href="http://pygments.org/docs/lexers/">?lang</a>';
-$help = <<<HELP
-$name(1)                          $uname                          $name(1)
+$help = "$name(1)                          ".strtoupper($name)."                          $name(1)
 
 NAME
     $name: command line pastebin
@@ -37,8 +35,6 @@ DESCRIPTION
 EXAMPLES
     $ cat script.sh | curl -Ff=@- $url
     $url/$id
-    $ firefox $url/$id?sh
-
-HELP;
-	echo($shell ? $help : "<html><head><style>a{ text-decoration: none; }</style></head><body><pre>\n$help\n</pre></body>");
+    $ firefox $url/$id?sh";
+	echo($shell ? "$help\n\n" : "<html><head><style>a{ text-decoration: none; }</style></head><body><pre>\n$help\n</pre></body>");
 }
