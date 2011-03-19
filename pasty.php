@@ -11,7 +11,7 @@ if (isset($_FILES['f'])) {
 	$file = ".$name/$id";
 	if (!preg_match('/^\w{10}$/', $id) || !file_exists($file)) {
 		echo "404\n";
-	} elseif (isset($_SERVER['QUERY_STRING']) && preg_match('/^\w{2,10}$/', $_SERVER['QUERY_STRING'])) {
+	} elseif (isset($_SERVER['QUERY_STRING']) && preg_match('/^[\w\-\+]{1,20}$/', $_SERVER['QUERY_STRING'])) {
 		$format = $shell ? '-f terminal' : '-f html -O full,linenos=1';
 		passthru("pygmentize -l {$_SERVER['QUERY_STRING']} $format $file 2>&1");
 	} else {
