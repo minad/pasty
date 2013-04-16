@@ -9,7 +9,7 @@ if (isset($_FILES['f'])) {
 } elseif (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] !== '/') {
 	$id = substr($_SERVER['PATH_INFO'], 1);
 	$file = ".$name/$id";
-	if (!preg_match('/^\w{10}$/', $id) || !file_exists($file)) {
+	if (!preg_match('/\A\w{10}\Z/', $id) || !file_exists($file)) {
 		echo "404\n";
 	} elseif (isset($_SERVER['QUERY_STRING']) && preg_match('/\A[\w\-\+]{1,20}\Z/', $_SERVER['QUERY_STRING'])) {
 		$format = $shell ? '-f terminal' : '-f html -O full,linenos=1';
